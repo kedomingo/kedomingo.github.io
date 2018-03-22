@@ -5,7 +5,7 @@
     <meta name="keywords" content="Kyle Domingo, Software Engineer, PHP, Javascript, Python, HTML, CSS, Developer, Github, Linkedin."/>
     <style>
         html, body{
-            cursor: url(images/horse.cur), url(images/horse.gif) auto;
+            cursor: url(images/horse.cur), url(images/horse.gif), auto;
         }
         body {
             padding-right: 100px;
@@ -22,10 +22,63 @@
                 padding-left: 20px;
             }
         }
+        blink {
+            -webkit-animation-name: blink;
+            -webkit-animation-iteration-count: infinite;
+            -webkit-animation-timing-function: cubic-bezier(1.0,0,0,1.0);
+            -webkit-animation-duration: 1s;
+        }
+        @-webkit-keyframes blink { 67% { opacity: 0 }}
+        @-moz-keyframes blink {  67% { opacity: 0 }}
+        @-o-keyframes blink {  67% { opacity: 0 }}
+        @keyframes blink {  67% { opacity: 0 }}
+
+        .eyecontainer {
+            width: 100%;
+        }
+        .eye {
+            position: relative;
+            display: inline-block;
+            border-radius: 50%;
+            height: 30px;
+            width: 30px;
+            background: #CCC;
+        }
+        .eye:after { /*pupil*/
+            position: absolute;
+            bottom: 17px;
+            right: 10px;
+            width: 10px;
+            height: 10px;
+            background: #000;
+            border-radius: 50%;
+            content: " ";
+        }
     </style>
+
+    <script type="text/javascript">
+        document.onmousemove = function(event) {
+
+            var eye = document.getElementsByClassName('eye')[0];
+            var eye2 = document.getElementsByClassName('eye')[1];
+            var x = (eye.offsetLeft) + (eye.offsetWidth / 2);
+            var y = (eye.offsetTop) + (eye.offsetHeight / 2);
+            var rad = Math.atan2(event.pageX - x, event.pageY - y);
+            var rot = (rad * (180 / Math.PI) * -1) + 180;
+            var newstyle = ''+
+                '-webkit-transform: rotate(' + rot + 'deg);' +
+                '-moz-transform: rotate(' + rot + 'deg);' +
+                '-ms-transform: rotate(' + rot + 'deg);' +
+                'transform: rotate(' + rot + 'deg);'
+            ;
+            eye.setAttribute('style', newstyle);
+            eye2.setAttribute('style', newstyle);
+        };
+    </script>
+
 </head>
 <body>
-    <marquee><h2 style="color: #36e4ed; font-size: 40px">Welcome!</h2></marquee>
+    <blink><marquee><h2 style="color: #36e4ed; font-size: 40px">Welcome!</h2></marquee></blink>
 
     <h1>Kyle Domingo</h1>
     <a href="https://www.linkedin.com/in/kyledomingo/" target="_blank" style="color:orange">https://www.linkedin.com/in/kyledomingo/</a>
@@ -40,7 +93,11 @@
 
     <img src="images/genie.gif" alt="genie" /><img src="images/laptop-01.gif" alt="laptop" /><img src="images/genie.gif" alt="laptop" />
 
-    <div style="position: relative; top: 100px; width: 50%; margin: 0 auto;">
+    <div class='eyecontainer' style="margin-top: 20px">
+        <div class='eye'></div>
+        <div class='eye'></div>
+    </div>
+    <div style="width: 50%; margin: 50px auto;">
         Best viewed with <img src="images/netscape.gif" alt="netscape" />
     </div>
 </body>
